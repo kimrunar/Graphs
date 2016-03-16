@@ -71,7 +71,10 @@ void Graph::insertEdge(Node *v, Node *w, int i)
 
 void Graph::removeEdge(Edge *e)
 {
-	// TODO
+       e->endpoint[0] = nullptr;
+       e->endpoint[1] = nullptr;
+
+
 }
 
 void Graph::removeVertex(Node *n)

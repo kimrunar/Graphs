@@ -6,7 +6,6 @@ CONFIG -= qt
 SOURCES += main.cpp
 
 HEADERS += \
-    ffa.h \
     edge.h \
     graph.h \
     graphadt.h \
