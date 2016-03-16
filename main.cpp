@@ -1,7 +1,7 @@
 #include <iostream>
-#include "C:\Users\Kim Runar\Desktop\graphs\edge.h"
-#include "C:\Users\Kim Runar\Desktop\graphs\graph.h"
-#include "C:\Users\Kim Runar\Desktop\graphs\node.h"
+#include "edge.h"
+#include "graph.h"
+#include "node.h"
 
 using namespace std;
 

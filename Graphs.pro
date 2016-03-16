@@ -7,7 +7,7 @@ SOURCES += main.cpp
 
 HEADERS += \
     ffa.h \
-    ../../graphs/edge.h \
-    ../../graphs/graph.h \
-    ../../graphs/graphadt.h \
-    ../../graphs/node.h
+    edge.h \
+    graph.h \
+    graphadt.h \
+    node.h
