@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <functional>
 #include <iostream>
+#include <list>
 using namespace std;
 
 class Graph : public GraphADT {
@@ -71,15 +72,77 @@ void Graph::insertEdge(Node *v, Node *w, int i)
 
 void Graph::removeEdge(Edge *e)
 {
-       e->endpoint[0] = nullptr;
-       e->endpoint[1] = nullptr;
+
+    Node* v = e->endpoint[0];
+    Node* w = e->endpoint[1];
+
+    vector<Edge*>::iterator iv = v->edgeList.begin();
+    while(iv != v->edgeList.end()){
+        if((*iv)->endpoint[0] == v && (*iv)->endpoint[1] == w ){
+            swap(*iv, v->edgeList.back());
+            v->edgeList.pop_back();
+
+
+
+        }else{
+            iv++;
+        }
+    }
+
+
+    vector<Edge*>::iterator iw = w->edgeList.begin();
+    while(iw != w->edgeList.end()){
+
+        if((*iw)->endpoint[0] == v && (*iw)->endpoint[1] == w ){
+            swap(*iw, w->edgeList.back());
+            w->edgeList.pop_back();
+
+
+
+        }else{
+            iw++;
+        }
+    }
+
+    vector<Edge*>::iterator i = edgeList.begin();
+    while(i != edgeList.end()){
+        if((*i)->endpoint[0] == v && (*i)->endpoint[1] == w ){
+            swap(*iw, edgeList.back());
+            edgeList.pop_back();
+
+
+
+
+        }else{
+            i++;
+        }
+
+
+
+    }
+
 
 
 }
 
+
 void Graph::removeVertex(Node *n)
 {
-	// TODO
+    vector<Node*>::iterator i = verticeList.begin();
+    while(i != verticeList.end()){
+        if((*i) == n){
+            swap(*i, verticeList.back());
+            verticeList.pop_back();
+
+
+
+
+        }else{
+            i++;
+        }
+
+
+}
 }
 
 std::vector<Edge*>& Graph::incidentEdges(Node *n)
@@ -183,7 +246,21 @@ void Graph::depthFirstTraversal(Node* n)
 
 void Graph::breadthFirstTraversal(Node* n)
 {
-	// TODO
+    setAllUnvisited();
+  queue<Node*> q;
+    q.push(n);
+   while(!q.empty()){
+      Node* v = q.front();
+      q.pop();
+       if(!v->visited){
+           for(vector<Edge*>::iterator i = v->edgeList.begin(); i != v->edgeList.end(); i++){
+               q.push(opposite(v, *i));
+           }
+          v->visited = true;
+          cout << v->data << " ";
+       }
+   }
+   cout << endl;
 }
 
 void Graph::setAllUnvisited()
@@ -208,8 +285,91 @@ public:
 
 std::vector<Edge*> Graph::primsAlgorithm()
 {
-	// TODO
+    Node* aktuell;
+    int minimum = 9999;
+    setAllUnvisited();
+    vector<Node*> v;
+    int inner = 0;
+    int a = 0;
+
+    for(vector<Node*>::iterator i = verticeList.begin(); i != verticeList.end(); i++){
+        for(vector<Edge*>::iterator j = (*i)->edgeList.begin(); j != (*i)->edgeList.end(); j++){
+
+    a = (*i)->edgeList[inner]->weight;
+    Node* denne = (*i);
+    if(a < minimum && denne->visited==false){
+        minimum = a;
+        if(opposite((*i),(*j))->visited == false){
+        aktuell = denne;
+        cout << "new candidate" << endl;
+        }
+     }else{
+        cout << "throw"<< endl;
+    }
+        inner++;
+        minimum = 888888;
+    }
+    if(aktuell != nullptr){
+        v.push_back(aktuell);
+        aktuell->visited = true;
+        aktuell = nullptr;
 }
+
+        inner = 0;
+   }
+
+}
+
+//    Node* aktuell = q.front();
+//    v.push(aktuell);
+//    aktuell->visited = true;
+//    Node* theOne = aktuell;
+
+//    while(!q.empty()){
+
+//    minste = 99999;
+
+//    for(vector<Edge*>::iterator i = aktuell->edgeList.begin(); i != aktuell->edgeList.end(); i++){
+//    int a = (*i)-> weight;
+
+
+//    if((*i)->endpoint[1]->visited == false ||(*i)->endpoint[0]->visited == false ){
+//        if(a < minste){
+//            minste = a;
+//            theOne = this->opposite(aktuell, (*i));
+//        }
+//    }
+
+
+//    }
+//    for(vector<Edge*>::iterator i = aktuell->edgeList.begin(); i != aktuell->edgeList.end(); i++){
+//        Node * l = this->opposite(aktuell,(*i));
+//        if(l->visited == true){
+//            ferdig = false;
+//        }
+//    }
+//    if(ferdig){
+//    theOne->visited=true;
+//    v.push(theOne);
+//    cout << theOne->data << " ,";
+//    }else{
+//        for(vector<Node*>::iterator i = verticeList.begin(); i != verticeList.end(); i++){
+//            if((*i)->visited == false){
+//               aktuell = (*i);
+//               break;
+//            }
+//        }
+//        ferdig = true;
+//    }
+
+ //   }
+
+
+
+
+
+
+//}
 
 /*
  *  Here we create a functor class that we can use to create a priority queue for Nodes

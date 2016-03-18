@@ -27,6 +27,7 @@ int main()
     graph->insertVertex(n3);
     graph->insertVertex(n4);
     graph->insertVertex(n5);
+    graph->insertVertex(n6);
     graph->insertEdge(e1->endpoint[0],e1->endpoint[1],e1->weight);
     graph->insertEdge(e2->endpoint[0],e2->endpoint[1],e2->weight);
     graph->insertEdge(e3->endpoint[0],e3->endpoint[1],e3->weight);
@@ -37,8 +38,15 @@ int main()
 
     system("pause");
     graph->depthFirstTraversal(n1);
-    graph->removeEdge(e4);
-    graph->depthFirstTraversal(n1);
+    graph->removeEdge(e6);
+    graph->removeEdge(e7);
+
+
+    system("pause");
+     graph->depthFirstTraversal(n1);
+
+    // graph->primsAlgorithm();
+
 
 
     return 0;
